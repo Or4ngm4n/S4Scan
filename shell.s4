@@ -1,0 +1,42 @@
+	$shellist = "scanslist/listshell.s4";
+	print "\n\n";
+print "\t\t Scanning ... $urls\n";
+sleep(1);
+print "\n\n";
+	open (SHE, "<$shellist") || die "[-] Can't open the List of shell file !";
+    @SHEL = <SHE>;
+    close SHE;
+	foreach my $file (@SHEL) {
+    chomp $file;
+    $shells = $file;
+	open (URLS, "<$ur") || die "[-] Can't open the List of site file !";
+    @URLS = <URLS>;
+    close URLS;
+	foreach my $file (@URLS) {
+    chomp $file;
+    $urls = $file;
+foreach $shells(@SHEL){
+print "";
+$url = $urls.$shells;
+$request = HTTP::Request->new(GET=>$url);
+$useragent = LWP::UserAgent->new();
+
+$response = $useragent->request($request);
+if ($response->is_success)
+{
+print "Found => $url\n";
+open(BEN,">>$outfile");
+print BEN "$url\n";
+close(BEN);
+}
+if ($response->content=~ /Access Denied/){
+print "Fail : $url =>[Error & Access Denied]\n";
+}
+else 
+{
+print "Not Found => $shells\n";
+}
+}
+}
+exit($shells);
+}

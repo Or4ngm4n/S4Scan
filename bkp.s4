@@ -1,0 +1,42 @@
+	print "\n\n";
+print "\t\t Scanning ... $urls\n";
+sleep(1);
+print "\n\n";
+    $shellist = "scanslist/listbackup.s4";
+	open (SHE, "<$shellist") || die "[-] Can't open the List of backup file !";
+    @SHEL = <SHE>;
+    close SHE;
+	foreach my $file (@SHEL) {
+    chomp $file;
+    $bkp = $file;
+	open (URLS, "<$ur") || die "[-] Can't open the List of site file !";
+    @URLS = <URLS>;
+    close URLS;
+	foreach my $file (@URLS) {
+    chomp $file;
+    $urls = $file;
+foreach $bkp(@SHEL){
+print "Scan : $urls\n";
+$url = $urls.$bkp.".zip";
+$request = HTTP::Request->new(GET=>$url);
+$useragent = LWP::UserAgent->new();
+
+$response = $useragent->request($request);
+if ($response->is_success)
+{
+print "Found => $url\n";
+open(BEN,">>$outfile");
+print BEN "$url\n";
+close(BEN);
+}
+if ($response->content=~ /Access Denied/){
+print "Fail : $url =>[Error & Access Denied]\n";
+}
+else 
+{
+print "Not Found => $bkp\n";
+}
+}
+}
+exit($bkp);
+}
