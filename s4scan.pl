@@ -1,9 +1,8 @@
 #!/usr/bin/perl
-# Oringinal code be Bl4ck.Viper
 #+--------------------------+
 #|    Welcome To S4canv2    |
-#|  Edit Dev By Or4ng3.M4n  |
-#| Follow : @s4udiT3rr0rist |
+#|       By Or4ng3.M4n      |
+#| Follow : @interestedz    |
 #+--------------------------+   
 # On this version
 # Get all site from ip Server
